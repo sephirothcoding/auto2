@@ -51,6 +51,31 @@
         .form-group button:hover {
             background-color: #0056b3;
         }
+
+        /* Stiluri pentru imaginile încărcate */
+        .uploaded-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .uploaded-image {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .uploaded-image img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .uploaded-image p {
+            font-size: 14px;
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -74,6 +99,11 @@
                 <button type="submit">Încarcă Imagine</button>
             </div>
         </form>
+
+        <!-- Container pentru imaginile încărcate -->
+        <div class="uploaded-images" id="uploadedImages">
+            <!-- Imaginile încărcate vor fi afișate aici -->
+        </div>
     </div>
 
     <script>
@@ -85,11 +115,23 @@
             var imageName = document.getElementById("imageName").value;
             var imagePrice = document.getElementById("imagePrice").value;
 
-            // Construiți URL-ul către pagina index2.html cu parametrii de imagine
-            var url = "index2.html" + "?imageUrl=" + encodeURIComponent(imageUrl) + "&imageName=" + encodeURIComponent(imageName) + "&imagePrice=" + encodeURIComponent(imagePrice);
+            // Creați un obiect de tip imagine
+            var img = new Image();
+            img.src = imageUrl;
+            img.alt = imageName;
 
-            // Navigați către pagina index2.html cu parametrii de imagine
-            window.location.href = url;
+            // Creează un element de paragraf pentru prețul imaginii
+            var priceParagraph = document.createElement("p");
+            priceParagraph.textContent = "Preț: " + imagePrice;
+
+            // Creează un container pentru imagine și preț
+            var imageContainer = document.createElement("div");
+            imageContainer.classList.add("uploaded-image");
+            imageContainer.appendChild(img);
+            imageContainer.appendChild(priceParagraph);
+
+            // Adăugați containerul la div-ul pentru imaginile încărcate
+            document.getElementById("uploadedImages").appendChild(imageContainer);
         });
     </script>
 </body>
